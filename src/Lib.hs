@@ -19,7 +19,26 @@ vidaDePersonaje (_, _, _, _, vida) = vida
 vidaEsMenorA :: [Personaje] -> Int -> Bool
 vidaEsMenorA personaje danio = (vidaDePersonaje personaje) < danio
 
+vidaCuradaMayorA :: [Personaje] -> Int -> Bool
+vidaCuradaMayorA personaje sanacion = vidaDePersonaje personaje > vidaDePersonaje
+
+curoPersonaje :: [Personaje] -> Int -> Int
+curoPersonaje personaje sanacion
+  |  = (vidaDePersonaje personaje)  danio
+
+
+danioPersonaje :: [Personaje] -> Int -> Int
+danioPersonaje personaje danio = (vidaDePersonaje personaje) - danio
+
 bolaEspinosa :: [Personaje]->Int
 bolaEspinosa personaje 
   |vidaEsMenorA personaje 1000 = vidaDePersonaje personaje = 0
-  |otherwise (vidaDePersonaje personaje) - 1000 
+  |otherwise = (vidaDePersonaje personaje) - 1000 
+
+amigo :: String -> Bool
+amigo amigoOenemigo = amigoOenemigo == "colega"
+
+lluviaDeTuercas :: [Personaje] -> String -> Int
+lluviaDeTuercas personaje amigoOenemigo = 
+  |amigo amigoOenemigo = curoPersonaje personaje 800
+  |otherwise = danioPersonaje personaje 800
