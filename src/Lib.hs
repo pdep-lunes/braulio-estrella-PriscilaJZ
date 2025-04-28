@@ -16,15 +16,26 @@ Pamela = "Pamela" "lluvia de tuercas" "torreta Curativa" False 9600
 vidaDePersonaje :: [Personaje] -> Int
 vidaDePersonaje (_, _, _, _, vida) = vida
 
+nombreDePersonaje :: [Personaje] -> String
+nombreDePersonaje (nombre, _,_,_,_) = nombre
+
 vidaEsMenorA :: [Personaje] -> Int -> Bool
 vidaEsMenorA personaje danio = (vidaDePersonaje personaje) < danio
 
 vidaCuradaMayorA :: [Personaje] -> Int -> Bool
 vidaCuradaMayorA personaje sanacion = vidaDePersonaje personaje > vidaDePersonaje
 
+creoPersonajeModificado :: [Personaje]
+
 curoPersonaje :: [Personaje] -> Int -> Int
 curoPersonaje personaje sanacion
-  |  = (vidaDePersonaje personaje)  danio
+  |vidaCuradaMayorA personaje sanacion = 
+        |nombreDePersonaje personaje= "Pamela"
+            let 
+                PamelaModificada :: [Personaje]
+                PamelaModificada = "Pamela" "lluvia de tuercas" "torreta Curativa" False (vidaDePersonaje.personaje $(+))
+    
+            (vidaDePersonaje personaje)  danio
 
 
 danioPersonaje :: [Personaje] -> Int -> Int
@@ -42,3 +53,5 @@ lluviaDeTuercas :: [Personaje] -> String -> Int
 lluviaDeTuercas personaje amigoOenemigo = 
   |amigo amigoOenemigo = curoPersonaje personaje 800
   |otherwise = danioPersonaje personaje 800
+
+  
