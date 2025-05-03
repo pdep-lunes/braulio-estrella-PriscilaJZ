@@ -32,11 +32,17 @@ bolaEspinosa personaje = herir personaje 1000
 amigo :: String -> Bool
 amigo amigoOenemigo = amigoOenemigo == "colega"
 
-lluviaDeTuercas :: Personaje -> String -> Int
+lluviaDeTuercas :: Personaje -> String -> Personaje
 lluviaDeTuercas personaje amigoOenemigo = 
   |amigo amigoOenemigo = curar personaje 800
   |otherwise = herir personaje 800
 
+torretaCurativa :: Personaje -> Bool -> Personaje
+torretaCurativa personaje superActivo = personaje {superActivo = True} && personaje {vida = vida personaje * 2}
 
-
+granadaDeEspinas :: Personaje 
+granadaDeEspinas personaje radio 
+  |radio > 3 = personaje {nombre = nombre personaje + "Espina estuvo aquí"} &&
+    |vida personaje < 800 = personaje {vida = 0} && personaje {superActivo = False}
+  |otherwise = bolaEspinosa personaje
   
