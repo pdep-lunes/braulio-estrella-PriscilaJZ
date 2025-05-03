@@ -5,53 +5,38 @@ import Text.Show.Functions ()
 doble :: Int -> Int
 doble x = x * 2
 
-type Personaje=(String, String, String, Bool, Int)
+data Personaje = Personaje {
+    nombre :: String,
+    poderBasico :: String,
+    superPoder :: String,
+    superActivo :: Bool,
+    vida :: Int,
+    vidaInicial :: Int
+} deriving Show
 
 Espina :: Personaje
-Espina = "Espina", "bola de espinas", "granadas de espinas", True, 4800
+Espina = ("Espina", "bola de espinas", "granadas de espinas", True, 4800, 4800)
 
 Pamela :: Personaje
-Pamela = "Pamela" "lluvia de tuercas" "torreta Curativa" False 9600
+Pamela = ("Pamela", "lluvia de tuercas", "torreta Curativa", False, 9600, 9600)
 
-vidaDePersonaje :: [Personaje] -> Int
-vidaDePersonaje (_, _, _, _, vida) = vida
+curar :: Personaje -> Int -> Personaje
+curar personaje sanacion = personaje {vida = min (vida personaje + sanacion) (vidaInicial personaje)}
 
-nombreDePersonaje :: [Personaje] -> String
-nombreDePersonaje (nombre, _,_,_,_) = nombre
+herir :: Personaje -> Int -> Personaje
+herir personaje danio = personaje {vida = max 0 (vida personaje - danio)}
 
-vidaEsMenorA :: [Personaje] -> Int -> Bool
-vidaEsMenorA personaje danio = (vidaDePersonaje personaje) < danio
-
-vidaCuradaMayorA :: [Personaje] -> Int -> Bool
-vidaCuradaMayorA personaje sanacion = vidaDePersonaje personaje > vidaDePersonaje
-
-creoPersonajeModificado :: [Personaje]
-
-curoPersonaje :: [Personaje] -> Int -> Int
-curoPersonaje personaje sanacion
-  |vidaCuradaMayorA personaje sanacion = 
-        |nombreDePersonaje personaje= "Pamela"
-            let 
-                PamelaModificada :: [Personaje]
-                PamelaModificada = "Pamela" "lluvia de tuercas" "torreta Curativa" False (vidaDePersonaje.personaje $(+))
-    
-            (vidaDePersonaje personaje)  danio
-
-
-danioPersonaje :: [Personaje] -> Int -> Int
-danioPersonaje personaje danio = (vidaDePersonaje personaje) - danio
-
-bolaEspinosa :: [Personaje]->Int
-bolaEspinosa personaje 
-  |vidaEsMenorA personaje 1000 = vidaDePersonaje personaje = 0
-  |otherwise = (vidaDePersonaje personaje) - 1000 
+bolaEspinosa :: Personaje -> Personaje
+bolaEspinosa personaje = herir personaje 1000
 
 amigo :: String -> Bool
 amigo amigoOenemigo = amigoOenemigo == "colega"
 
-lluviaDeTuercas :: [Personaje] -> String -> Int
+lluviaDeTuercas :: Personaje -> String -> Int
 lluviaDeTuercas personaje amigoOenemigo = 
-  |amigo amigoOenemigo = curoPersonaje personaje 800
-  |otherwise = danioPersonaje personaje 800
+  |amigo amigoOenemigo = curar personaje 800
+  |otherwise = herir personaje 800
+
+
 
   
